@@ -3,6 +3,7 @@ import asyncHandler from '../services/asyncHandler';
 import CustomError from '../utils/customError';
 import mongoose from 'mongoose';
 import mailHelper from '../utils/mailHelper';
+import crypto from 'crypto';
 
 export const cookieOptions = {
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
@@ -160,3 +161,57 @@ export const logout = asyncHandler(async (_req, res) => {
 })
 
 
+/******************************************************
+ * @RESET_PASSWORD
+ * @route http://localhost:5000/api/auth/reset/:resetPasswordToken
+ * @description User will able to reset password based on url token
+ * @parameters  token from url, password and confirmPasword
+ * @returns user object
+ ******************************************************/
+
+
+export const resetPassword = asyncHandler(async (req, res)=>{
+    const {token: resetToken} = req.params;
+    const {password, confirmPassword} = req.body;
+
+   const resetPasswordToken =  crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex')
+
+    const user = await User.findOne({
+        forgotPasswordToken:resetPasswordToken,
+        forgotPasswordExpiry:{$gt : Date.now()}
+    })
+
+    if(!user){
+        throw new CustomError('password token is invalid or expired', 400)
+    }
+
+    if(password !== confirmPassword){
+        throw new CustomError('password and confirmPassword doesnot matched', 400)
+    }
+
+    user.password = password
+    user.forgotPasswordToken = undefined
+    user.forgotPasswordExpiry = undefined
+
+    await user.save()
+
+    // create token and send as response
+    const token = user.getJwtToken();
+    user.password = undefined
+
+// send object to user
+    res.cookie("token",token, cookieOptions);
+    res.status(200).json({
+        success: true,
+        message: "password reset successfull",
+        user
+    })
+
+
+})
+
+
+// Todo: create a controller for change password
