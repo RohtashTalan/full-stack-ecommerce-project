@@ -5,7 +5,7 @@ import config from "../config";
 import crypto from "crypto";
 import bcrypt from "bcryptjs"
 
-const userSchema = () => {mongoose.Schema({
+const userSchema = mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -32,7 +32,6 @@ const userSchema = () => {mongoose.Schema({
 },
 {timestamps: true}
 )
-}
 
 
 // encrypted password hook

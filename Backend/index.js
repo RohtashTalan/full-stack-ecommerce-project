@@ -1,9 +1,30 @@
-const app = require("./app");
-// import config from "./config/index";
+import app from "./app.js";
+import mongoose from "mongoose";
+import config  from "./config/index";
 
-const PORT =  4000;
 
 
-app.listen(PORT,()=>{
-    console.log(`Server running at http://localhost:${PORT}`);
-})
+//create a fn
+// run a fn
+// (async () => {})()
+(async () => {
+    try {
+        await mongoose.connect(config.MONGODB_URL);
+        console.log("DB Connected");
+
+        app.on('error', (err)=>{
+            console.log("ERROR", err);
+            throw err;
+        })
+        const onListening = () => {
+                console.log(`Server running at http://localhost:${config.PORT}`);
+        }
+        app.listen(config.PORT, onListening)
+
+
+    } catch (err) {
+        console.log("Error ", err);
+        throw err
+    }
+})()
+
