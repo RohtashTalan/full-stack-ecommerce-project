@@ -11,6 +11,7 @@ export const cookieOptions = {
     httpOnly: true,
     //could be in a separate file in utils
 }
+
 /******************************************************
  * @SIGNUP
  * @route http://localhost:5000/api/auth/signup
@@ -238,3 +239,5 @@ export const getProfile = asyncHandler(async(req, res) => {
         })
     
 })
+
+
