@@ -84,7 +84,7 @@ export const deleteCollection = asyncHandler(async (req, res) => {
     if(!deletedCollection){
         throw new CustomError("Collection not found",400)
     }
-    
+
     deletedCollection.remove();
 
     // send response to frontend
@@ -95,3 +95,27 @@ export const deleteCollection = asyncHandler(async (req, res) => {
     })
 
 });
+
+/******************************************************
+ * @GEtAll_COLLECTION
+ * @route http://localhost:5000/api/auth/signup
+ * @description User signUp Controller for creating new user
+ * @parameters name, email, password
+ * @returns User Object
+ ******************************************************/
+
+
+export const getAllCollections = asyncHandler(async (req, res) => {
+
+    const getCollections =await Collection.find();
+
+    if(!getCollections){
+        throw new CustomError("no Collection not found", 400)
+    }
+
+    res.status(200).json({
+        success:true,
+        message: "All the collection",
+        getCollections
+    })
+})
