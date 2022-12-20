@@ -7,8 +7,7 @@ import config from '../config/index';
 
 
 
-
-export const isLoggdIn = asyncHandler(async (req, res, next) => {
+export const isLoggdIn = asyncHandler(async (req, _res, next) => {
     let token;
 
     if(
