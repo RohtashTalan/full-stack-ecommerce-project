@@ -65,3 +65,33 @@ export const updateCollection = asyncHandler(async (req, res) => {
     updatedCollection,
   });
 });
+
+
+/******************************************************
+ * @Delete_COLLECTION
+ * @route http://localhost:5000/api/auth/signup
+ * @description User signUp Controller for creating new user
+ * @parameters name, email, password
+ * @returns User Object
+ ******************************************************/
+
+export const deleteCollection = asyncHandler(async (req, res) => {
+    // value need to be deleted 
+    const {id: collectionId} = req.params;
+
+    const deletedCollection = await Collection.findByIdAndDelete(collectionId);
+
+    if(!deletedCollection){
+        throw new CustomError("Collection not found",400)
+    }
+    
+    deletedCollection.remove();
+
+    // send response to frontend
+    res.status(200).json({
+        success: true,
+        message: "collection deleted successfully",
+        deletedCollection
+    })
+
+});
