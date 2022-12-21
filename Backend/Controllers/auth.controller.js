@@ -218,6 +218,22 @@ export const resetPassword = asyncHandler(async (req, res)=>{
 
 // Todo: create a controller for change password
 
+/******************************************************
+ * @UPDATE_PASSWORD
+ * @route http://localhost:5000/api/auth/password/update
+ * @description User will able to reset password based on url token
+ * @parameters  token from url, password and confirmPasword
+ * @returns user object
+ ******************************************************/
+
+export const updatePassword = asyncHandler(async (req, res) => {
+    const {oldPassword, newPassword} = req.body;
+    const token = req.cookies.token;
+
+    
+})
+
+
 
 /******************************************************
  * @GET_PROFILE
