@@ -221,16 +221,30 @@ export const resetPassword = asyncHandler(async (req, res)=>{
 /******************************************************
  * @UPDATE_PASSWORD
  * @route http://localhost:5000/api/auth/password/update
- * @description User will able to reset password based on url token
- * @parameters  token from url, password and confirmPasword
+ * @description User will able to update password based only if he is login (middleware will check wheter user is loggedIn or not)
+ * @parameters  userid from req.user body will be inserted by route, oldPassword and newPassword
  * @returns user object
  ******************************************************/
 
 export const updatePassword = asyncHandler(async (req, res) => {
     const {oldPassword, newPassword} = req.body;
-    const token = req.cookies.token;
 
-    
+    if(!oldPassword || !newPassword){
+        throw new CustomError("Both new and old password requried", 400)
+    }
+
+    // req.user will be inserted by middleware in route file
+    const user = await User.findById(req.user.id);
+
+    user.password = newPassword;
+    user.save();
+
+    // send message to frontend
+    res.status(200).json({
+        success: true,
+        message: "Password updated successfully"
+    })
+
 })
 
 
