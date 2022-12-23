@@ -11,6 +11,8 @@
     }).promise()
  }
 
+ 
+
 // delete file from aws bucket
  export const deleteFile  =async({bucketName, key}) => {
     return await s3.deleteObject({
