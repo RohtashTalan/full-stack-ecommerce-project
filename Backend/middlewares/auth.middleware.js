@@ -11,7 +11,7 @@ export const isLoggdIn = asyncHandler(async (req, _res, next) => {
     let token;
 
     if(
-        req.cookies.token || req.headers.authorization && req.headers.authorization.startsWith("Bearer")
+        req.cookies.token || (req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
     ){
         token = req.cookies.token || req.headers.authorization.split(' ')[1]
     }
