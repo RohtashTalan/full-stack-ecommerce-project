@@ -9,14 +9,14 @@ import config from "../config/index.js";
 
 
 
-/*****************************************************************
- * 
- * 
- * 
- * 
- * 
- * 
- *****************************************************************/
+/**********************************************************
+ * @ADD_PRODUCT
+ * @route https://localhost:5000/api/product
+ * @description Controller used for creating a new product
+ * @description Only admin can create the coupon
+ * @descriptio Uses AWS S3 Bucket for image upload
+ * @returns Product Object
+ *********************************************************/
 
 export const addProduct = asyncHandler(async (req, res) => {
      const form = formidable({
@@ -92,3 +92,71 @@ export const addProduct = asyncHandler(async (req, res) => {
         }
      })
 })
+
+
+/**********************************************************
+ * @GET_ALL_PRODUCT
+ * @route https://localhost:5000/api/product
+ * @description Controller used for get a list of all products
+ * @description Only admin can create the coupon
+ * @descriptio Uses AWS S3 Bucket for image upload
+ * @returns Product Object
+ *********************************************************/
+
+export const getAllProducts = asyncHandler(async (req, res) => {
+
+    const products = await Product.find({});
+
+    if(!products){
+        throw new CustomError("NO product was found", 404)
+    }
+
+    res.status(200).json({
+        success: true,
+        products
+    })
+})
+
+/**********************************************************
+ * @GET_PRODUCT_ID
+ * @route https://localhost:5000/api/product
+ * @description Controller used for get one product by id
+ * @description Only admin can create the coupon
+ * @descriptio Uses AWS S3 Bucket for image upload
+ * @returns Product Object
+ *********************************************************/
+
+export const getProductById = asyncHandler(async (req, res) => {
+    const {productId} = req.body;
+
+    if(!productId){throw new CustomError("Product Id not available", 401)}
+
+    const product = await Product.findById({_id:productId});
+
+    if(!product){
+        throw new CustomError("NO product was found", 404)
+    }
+
+    res.status(200).json({
+        success: true,
+        product
+    })
+})
+
+
+// assignment to read 
+
+
+/* 
+
+
+model.aggregate([{}, {}, {}, {}])
+
+$group
+$push
+$ROOT
+$lookup
+$porject
+
+
+*/
