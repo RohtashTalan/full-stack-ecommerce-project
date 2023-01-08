@@ -15,4 +15,5 @@ const collectionSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+
 export default mongoose.model("Collection", collectionSchema);
