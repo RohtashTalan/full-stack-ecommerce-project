@@ -1,6 +1,6 @@
-import Collection from "../Model/collection.schema";
-import asyncHandler from "../services/asyncHandler";
-import CustomError from "../utils/customError";
+import Collection from "../Model/collection.schema.js";
+import asyncHandler from "../services/asyncHandler.js";
+import CustomError from "../utils/customError.js";
 
 /******************************************************
  * @Create_COLLECTION
