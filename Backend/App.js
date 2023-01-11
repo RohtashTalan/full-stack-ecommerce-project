@@ -17,5 +17,10 @@ app.use(morgan('tiny'))
 
 
 
+// Routes middleware
+import rootRouter from "./Routes";
+app.use("/api/v1", rootRouter);
+
+
 
 module.exports=app;
