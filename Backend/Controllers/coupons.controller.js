@@ -8,7 +8,7 @@ import config from "../config/index.js";
 
 /**********************************************************
  * @CREATE_COUPON
- * @route https://localhost:5000/api/coupon
+ * @route https://localhost:5000/api/coupon/add
  * @description Controller used for creating a new coupon
  * @description Only admin and Moderator can create the coupon
  * @returns Coupon Object with success message "Coupon Created SuccessFully"
@@ -50,7 +50,7 @@ export const deactiveCoupon = asyncHandler( async(req, res, next) => {
 
 /**********************************************************
  * @DELETE_COUPON
- * @route https://localhost:5000/api/coupon/:couponId
+ * @route https://localhost:5000/api/coupon/delete/:couponId
  * @description Controller used for deleting the coupon
  * @description Only admin and Moderator can delete the coupon
  * @returns Success Message "Coupon Deleted SuccessFully"
