@@ -11,10 +11,9 @@ import config from "../config/index.js";
 
 /**********************************************************
  * @ADD_PRODUCT
- * @route https://localhost:5000/api/product
+ * @route https://localhost:5000/api/product/add
  * @description Controller used for creating a new product
- * @description Only admin can create the coupon
- * @descriptio Uses AWS S3 Bucket for image upload
+ * @parameter name, price, description, photos[], stock, sold, colectionId
  * @returns Product Object
  *********************************************************/
 
@@ -96,10 +95,10 @@ export const addProduct = asyncHandler(async (req, res) => {
 
 /**********************************************************
  * @GET_ALL_PRODUCT
- * @route https://localhost:5000/api/product
+ * @route https://localhost:5000/api/product/
  * @description Controller used for get a list of all products
- * @description Only admin can create the coupon
- * @descriptio Uses AWS S3 Bucket for image upload
+ * @description Controller used for creating a new product
+ * @parameter name, price, description, photos[], stock, sold, colectionId
  * @returns Product Object
  *********************************************************/
 
@@ -119,10 +118,10 @@ export const getAllProducts = asyncHandler(async (req, res) => {
 
 /**********************************************************
  * @GET_PRODUCT_ID
- * @route https://localhost:5000/api/product
+ * @route https://localhost:5000/api/product/single
  * @description Controller used for get one product by id
- * @description Only admin can create the coupon
- * @descriptio Uses AWS S3 Bucket for image upload
+ * @description Controller used for creating a new product
+ * @parameter name, price, description, photos[], stock, sold, colectionId
  * @returns Product Object
  *********************************************************/
 
@@ -142,6 +141,9 @@ export const getProductById = asyncHandler(async (req, res) => {
         product
     })
 })
+
+
+
 
 
 // assignment to read 
