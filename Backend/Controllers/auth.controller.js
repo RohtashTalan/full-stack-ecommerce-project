@@ -1,8 +1,8 @@
-import User from '../Model/user.model';
-import asyncHandler from '../services/asyncHandler';
-import CustomError from '../utils/customError';
+import User from '../Model/user.model.js';
+import asyncHandler from '../services/asyncHandler.js';
+import CustomError from '../utils/customError.js';
 import mongoose from 'mongoose';
-import mailHelper from '../utils/mailHelper';
+import mailHelper from '../utils/mailHelper.js';
 import crypto from 'crypto';
 import exp from 'constants';
 

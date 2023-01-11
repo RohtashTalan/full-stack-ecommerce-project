@@ -18,7 +18,7 @@ app.use(morgan('tiny'))
 
 
 // Routes middleware
-import rootRouter from "./Routes";
+import rootRouter from "./Routes/index.js";
 app.use("/api/v1", rootRouter);
 
 
