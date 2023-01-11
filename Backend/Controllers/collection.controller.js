@@ -4,10 +4,10 @@ import CustomError from "../utils/customError.js";
 
 /******************************************************
  * @Create_COLLECTION
- * @route http://localhost:5000/api/auth/signup
- * @description User signUp Controller for creating new user
- * @parameters name, email, password
- * @returns User Object
+ * @route http://localhost:4000/api/collection/create
+ * @description admin can create collection
+ * @parameters name
+ * @returns collection Object
  ******************************************************/
 
 export const createCollection = asyncHandler(async (req, res) => {
@@ -30,10 +30,10 @@ export const createCollection = asyncHandler(async (req, res) => {
 
 /******************************************************
  * @Update_COLLECTION
- * @route http://localhost:5000/api/auth/signup
- * @description User signUp Controller for creating new user
- * @parameters name, email, password
- * @returns User Object
+ * @route http://localhost:4000/api/collection/update/:collectionId
+ * @description admin can update collection
+ * @parameters name, collectionId in params
+ * @returns collection Object
  ******************************************************/
 
 export const updateCollection = asyncHandler(async (req, res) => {
@@ -66,10 +66,10 @@ export const updateCollection = asyncHandler(async (req, res) => {
 
 /******************************************************
  * @Delete_COLLECTION
- * @route http://localhost:5000/api/auth/signup
- * @description User signUp Controller for creating new user
- * @parameters name, email, password
- * @returns User Object
+ * @route http://localhost:4000/api/collection/delete/:collectionId
+ * @description admin can delete collection
+ * @parameters collectionId
+ * @returns collection Object
  ******************************************************/
 
 export const deleteCollection = asyncHandler(async (req, res) => {
@@ -94,10 +94,10 @@ export const deleteCollection = asyncHandler(async (req, res) => {
 
 /******************************************************
  * @GEtAll_COLLECTION
- * @route http://localhost:5000/api/auth/signup
- * @description User signUp Controller for creating new user
- * @parameters name, email, password
- * @returns User Object
+ * @route http://localhost:4000/api/collection/
+ * @description admin can get collection
+ * @parameters 
+ * @returns collection Object
  ******************************************************/
 
 export const getAllCollections = asyncHandler(async (req, res) => {

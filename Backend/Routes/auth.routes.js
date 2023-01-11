@@ -1,8 +1,9 @@
 import express from 'express';
-import { forgotPassword, getProfile, login, logout, resetPassword, signUp, updatePassword } from '../Controllers/auth.controller.js';
+const Router = express.Router();
 import { isLoggdIn } from '../middlewares/auth.middleware.js';
 
-const Router = express.Router();
+
+import { forgotPassword, getProfile, login, logout, resetPassword, signUp, updatePassword } from '../Controllers/auth.controller.js';
 
 
 Router.route('/signup').post(signUp);
