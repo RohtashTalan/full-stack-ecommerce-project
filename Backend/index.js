@@ -1,6 +1,6 @@
 import app from "./app.js";
 import mongoose from "mongoose";
-import config  from "./config/index";
+import config  from "./config/index.js";
 
 
 

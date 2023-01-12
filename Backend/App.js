@@ -23,4 +23,4 @@ app.use("/api/v1", rootRouter);
 
 
 
-module.exports=app;
+export default app;

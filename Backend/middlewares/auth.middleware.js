@@ -1,5 +1,5 @@
 import User from '../Model/user.model.js';
-import  JWT, { JsonWebTokenError }  from 'jsonwebtoken';
+import  JWT from 'jsonwebtoken';
 import CustomError from '../utils/customError.js';
 import asyncHandler from '../services/asyncHandler.js';
 import config from '../config/index.js';
