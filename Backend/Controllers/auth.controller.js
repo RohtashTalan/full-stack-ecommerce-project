@@ -66,13 +66,14 @@ export const login = asyncHandler(async (req, res) => {
         throw new CustomError('Please fill all fields', 400)
     }
 
-    const user = User.findOne({email}).select("+password")
+    const user = await User.findOne({email}).select("+password")
 
     if (!user) {
         throw new CustomError('Invalid credentials', 400)
     }
 
-    const isPasswordMatched = await user.comparePassword(password)
+
+    const isPasswordMatched = await user.comparePassword(password);
 
     if (isPasswordMatched) {
         const token = user.getJwtToken()
@@ -129,7 +130,7 @@ export const logout = asyncHandler(async (_req, res) => {
     throw new CustomError('User not Found', 404)
    }
 
-   const resetToken = await User.generateForgotPasswordToken();
+   const resetToken = await user.generateForgotPasswordToken();
 
    await user.save({validateBeforSave: false});
 
@@ -150,10 +151,9 @@ export const logout = asyncHandler(async (_req, res) => {
         })
    } catch (err) {
     // roll back - clear fields and save
-    User.forgotPasswordToken = undefined;
-    User.forgotPasswordExpiry = undefined;
-   await User.save({validateBeforSave: false})
-
+    user.forgotPasswordToken = undefined;
+    user.forgotPasswordExpiry = undefined;
+    await user.save({validateBeforSave: false})
 
     throw new CustomError(err.message || 'Email sent failure', 500)
 
@@ -175,6 +175,8 @@ export const logout = asyncHandler(async (_req, res) => {
 export const resetPassword = asyncHandler(async (req, res)=>{
     const {token: resetToken} = req.params;
     const {password, confirmPassword} = req.body;
+
+    console.log(resetToken, password, confirmPassword);
 
    const resetPasswordToken =  crypto
     .createHash('sha256')

@@ -11,7 +11,7 @@ Router.route('/login').post(login);
 Router.route('/logout').get(logout);
 
 Router.route('/password/forgot').post(forgotPassword);
-Router.route('/reset/:resetPasswordToken').get(resetPassword);
+Router.route('/password/reset/:token').post(resetPassword);
 
 Router.route('/password/update').post(isLoggdIn, updatePassword);
 Router.route('/profile').get(isLoggdIn, getProfile);
