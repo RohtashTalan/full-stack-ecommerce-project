@@ -1,9 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
+    <div className="text-3xl font-bold underline text-red-600">
       <h1>Ecommerce App</h1>
     </div>
   );
