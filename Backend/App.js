@@ -23,4 +23,18 @@ app.use("/api/v1", rootRouter);
 
 
 
+// Swagger Docs realated
+import swaggerUi from 'swagger-ui-express';
+import YAML from "yamljs";
+const swaggerDocument = YAML.load("./swagger/swagger.yaml");
+
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
+
+
+
+
+
 export default app;
