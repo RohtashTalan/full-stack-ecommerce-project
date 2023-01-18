@@ -1,5 +1,49 @@
 openapi: 3.0.0
 info:
   title: Ecommerce Api
-  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  description: Api to personal ecommerce app.
   version: 1.0.0
+  contact:
+    name: API Support - Rohtash Talan
+    email: rohtashtalancompany@gmail.com
+    url: https://rohtashtalan.com
+
+
+servers:
+  - url: http://localhost:4000/api/v1
+    description: Api server for ecommerce app
+
+tags:
+  - name: Auth
+    description: Everything about User
+    externalDocs:
+      url: http://localhost:4000/api/v1/auth
+  - name: Collection
+    description: Everything about Collection
+    externalDocs:
+      url: http://localhost:4000/api/v1/collection
+  - name: Product
+    description: Everything about Products
+    externalDocs:
+      url: http://localhost:4000/api/v1/product
+  - name: Order
+    description: Everything about Order
+    externalDocs:
+      url: http://localhost:4000/api/v1/order
+  - name: Coupon
+    description: Everything about Coupon
+    externalDocs:
+      url: http://localhost:4000/api/v1/coupon
+
+
+
+
+paths:
+  /auth/signup:
+    get:
+      summary: Register user on the server
+      tags:
+        - Auth
+      responses: 
+        '200':
+          description: OK
