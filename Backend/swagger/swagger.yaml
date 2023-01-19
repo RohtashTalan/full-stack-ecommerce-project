@@ -457,3 +457,152 @@ paths:
                     type: string
                   products:
                     type: object
+
+
+
+
+# Order APIs
+  /order/add:
+      post:
+        tags:
+          - Order
+        summary: Add Order to user's Account
+        requestBody:
+          description: add product to of collection
+          required: true
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                    name:
+                      type: string
+                    price:
+                      type: number
+                    description:
+                      type: string
+                    photos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                    stock:
+                      type: number
+                    sold:
+                      type: number
+                    colectionId:
+                      type: string
+        responses: 
+          '200':
+            description: Success - return object
+            content:
+              application/json: 
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: string
+                    product: 
+                     type: object
+  
+
+
+
+# Coupons APIs
+  /coupon/add:
+      post:
+        tags:
+          - Coupon
+        summary: add coupon to database
+        requestBody:
+          description: name of coupon
+          required: true
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                    code:
+                      type: string
+                    discount:
+                      type: number
+        responses: 
+          '200':
+            description: Success - return object
+            content:
+              application/json: 
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: string
+                    newCoupon: 
+                      type: string
+  /coupon//delete/{couponId}:
+    delete:
+      tags:
+        - Coupon
+      summary: delete coupon by couponId
+      parameters:
+        - name: couponId
+          in: path
+          description: delete coupon
+          required: true
+          schema:
+            type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  deletedCoupon:
+                    type: object
+  /coupon:
+    get:
+      tags:
+        - Coupon
+      summary: get all coupon
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  coupons:
+                    type: object
+  /coupon//deactive/{couponId}:
+    put:
+      tags:
+        - Coupon
+      summary: deactivate coupon by couponId
+      parameters:
+        - name: couponId
+          in: path
+          description: deactivate coupon
+          required: true
+          schema:
+            type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  deactive:
+                    type: object
+  
