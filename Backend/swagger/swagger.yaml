@@ -36,14 +36,82 @@ tags:
       url: http://localhost:4000/api/v1/coupon
 
 
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth: 
+      type: http
+      scheme: bearer
 
 
 paths:
   /auth/signup:
-    get:
-      summary: Register user on the server
+    post:
       tags:
         - Auth
+      summary: Register user on the server
+      requestBody:
+        description: name, email, password required to register
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  name:
+                    type: string
+                  email: 
+                    type: string
+                  password:
+                    type: string
       responses: 
         '200':
-          description: OK
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  token: 
+                    type: string
+                  user:
+                    type: object
+        '400':
+          description: Failure - return object
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login user on the server
+      requestBody:
+        description: email, password required to login
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  email: 
+                    type: string
+                  password:
+                    type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  token: 
+                    type: string
+                  user:
+                    type: object
+        '400':
+          description: Failure - return object
