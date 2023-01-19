@@ -11,7 +11,7 @@ info:
 
 servers:
   - url: http://localhost:4000/api/v1
-    description: Api server for ecommerce app
+    description: Api server for localhost ecommerce app
 
 tags:
   - name: Auth
