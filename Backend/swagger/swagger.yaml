@@ -50,6 +50,10 @@ components:
       scheme: bearer
 
 
+
+
+
+
 paths:
 
 # User and Auth related APIs
@@ -361,3 +365,95 @@ paths:
                   deletedCollection:
                     type: object
   
+
+
+
+# Product APIs
+  /product/add:
+      post:
+        tags:
+          - Product
+        summary: Add Product
+        requestBody:
+          description: add product to of collection
+          required: true
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                    name:
+                      type: string
+                    price:
+                      type: number
+                    description:
+                      type: string
+                    photos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                    stock:
+                      type: number
+                    sold:
+                      type: number
+                    colectionId:
+                      type: string
+        responses: 
+          '200':
+            description: Success - return object
+            content:
+              application/json: 
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: string
+                    product: 
+                     type: object
+  /product/single/:
+    post:
+      tags:
+        - Product
+      summary: get product by product id
+      requestBody:
+        description: returns the product based on id
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  productId: 
+                    type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  product: 
+                    type: array
+  /product:
+    get:
+      tags:
+        - Product
+      summary: Get all Products
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  products:
+                    type: object
