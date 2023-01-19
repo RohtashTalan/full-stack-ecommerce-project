@@ -19,7 +19,7 @@ tags:
     externalDocs:
       url: http://localhost:4000/api/v1/auth
   - name: Collection
-    description: Everything about Collection
+    description: user must be loggedIn to access Collection
     externalDocs:
       url: http://localhost:4000/api/v1/collection
   - name: Product
@@ -249,3 +249,115 @@ paths:
 
 
 
+# Collection APIs
+  /collection/create:
+      post:
+        tags:
+          - Collection
+        summary: Register user on the server
+        requestBody:
+          description: name of collection
+          required: true
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                    name:
+                      type: string
+        responses: 
+          '200':
+            description: Success - return object
+            content:
+              application/json: 
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: string
+                    message: 
+                      type: string
+                    collection:
+                      type: object
+  /collection/update/{collectionId}:
+    put:
+      tags:
+        - Collection
+      summary: Update Collection by collectionId
+      parameters:
+        - name: collectionId
+          in: path
+          description: update Collection
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: new name of collection required
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  name: 
+                    type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+                  updatedCollection:
+                    type: object
+  /collection:
+    get:
+      tags:
+        - Collection
+      summary: delete Collection by collectionId
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+                  collections:
+                    type: object
+  /collection/delete/{collectionId}:
+    delete:
+      tags:
+        - Collection
+      summary: delete Collection by collectionId
+      parameters:
+        - name: collectionId
+          in: path
+          description: Delete Collection
+          required: true
+          schema:
+            type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+                  deletedCollection:
+                    type: object
+  
