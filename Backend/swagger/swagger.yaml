@@ -38,6 +38,10 @@ tags:
 
 components:
   securitySchemes:
+    cookieAuth: 
+        type: apiKey
+        in: cookie
+        token: token  # cookie name
     BasicAuth:
       type: http
       scheme: basic
@@ -47,6 +51,8 @@ components:
 
 
 paths:
+
+# User and Auth related APIs
   /auth/signup:
     post:
       tags:
@@ -80,8 +86,6 @@ paths:
                     type: string
                   user:
                     type: object
-        '400':
-          description: Failure - return object
   /auth/login:
     post:
       tags:
@@ -97,8 +101,10 @@ paths:
               properties:
                   email: 
                     type: string
+                    default: working@vijkom.com
                   password:
                     type: string
+                    default: working321
       responses: 
         '200':
           description: Success - return object
@@ -113,5 +119,133 @@ paths:
                     type: string
                   user:
                     type: object
-        '400':
-          description: Failure - return object
+  /auth/logout:
+    get:
+      tags:
+        - Auth
+      summary: Logout user on the server
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+  /auth/profile:
+    get:
+      tags:
+        - Auth
+      summary: return Profile of user from the server
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  user: 
+                    type: object
+  /auth/password/forgot:
+    post:
+      tags:
+        - Auth
+      summary: send email to rest password on the server
+      requestBody:
+        description: email required to request forgot password
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  email: 
+                    type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string     
+  /auth/password/reset/{token}:
+    post:
+      tags:
+        - Auth
+      summary: reset password with reset token password on the server
+      parameters:
+        - name: token
+          in: path
+          description: reset token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: password, confirm password required to reset password
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  password: 
+                    type: string
+                  confirmPassword: 
+                    type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+  /auth/password/update:
+    post:
+      tags:
+        - Auth
+      summary: update password on the server
+      requestBody:
+        description: user should be logined and then oldPassword, newPassword required to update password
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                  oldPassword: 
+                    type: string
+                  newPassword: 
+                    type: string
+      responses: 
+        '200':
+          description: Success - return object
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                  message: 
+                    type: string
+
+
+
+
