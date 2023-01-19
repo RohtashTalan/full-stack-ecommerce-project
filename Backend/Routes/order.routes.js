@@ -6,7 +6,7 @@ import { isLoggdIn } from '../middlewares/auth.middleware.js';
 
 import { generateRazorpayOrderId } from '../Controllers/order.controller.js';
 
-Router.route('/razorpay').post(isLoggdIn, generateRazorpayOrderId)
+Router.route('/add').post(isLoggdIn, generateRazorpayOrderId)
 
 
 export default Router;
