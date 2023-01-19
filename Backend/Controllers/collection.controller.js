@@ -110,6 +110,6 @@ export const getAllCollections = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "All the collection",
-    getCollections,
+    collections: getCollections
   });
 });
