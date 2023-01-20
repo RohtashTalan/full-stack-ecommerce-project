@@ -19,10 +19,19 @@ import razorpay from "../config/razorpay.config.js";
  * @returns Order Object with "Razorpay order id generated successfully"
  *********************************************************/
 
-export const generateRazorpayOrderId = asyncHandler( async (req, res)=>{
-    //get product and coupon from frontend
+export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
 
-    //verfiy product price from backend
+    /**Capture info from frontend
+     * products shoud have productId, count
+     * phone Number should be in number
+     */
+    const {products, couponId, address, phoneNumber} = req.body;
+    const userId = req.user._id;
+
+    //capture product price from backend
+     
+        
+
     // make DB query to get all products and info
 
     let totalAmount;
