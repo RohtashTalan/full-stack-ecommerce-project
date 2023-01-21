@@ -25,23 +25,32 @@ export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
      * products shoud have productId, count
      * phone Number should be in number
      */
-    const {products, couponId, address, phoneNumber} = req.body;
+    const {products, couponCode, address, phoneNumber} = req.body;
     const userId = req.user._id;
 
     //capture product price from backend
      
-        
+    const prices = await Product.find({ 
+        "_id" : {
+            "$in" : 
+              ["63ca26e0505996ae353b3530", 
+               "63ca26e0505996ae353b3531"
+              ]
+           }
+    });
 
-    // make DB query to get all products and info
 
-    let totalAmount;
+
+    let totalAmount = 0 ;
     //total amount and final amount
+    prices.map((item) => (totalAmount += item.price ))
     // coupon check - DB
+    const discount = await Coupon.find({code: couponCode});
     // disount
-    // finalAmount = totalAmount - discount
+    let finalAmount = totalAmount - discount
 
     const options = {
-        amount: Math.round(totalAmount * 100),
+        amount: Math.round(finalAmount * 100),
         currency: "INR",
         receipt: `receipt_${new Date().getTime()}`
     }
