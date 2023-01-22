@@ -33,47 +33,46 @@ export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
     productArray.map((item) => (
         productQuery.push(item.productId)
     ));
-
-
     
     //capture product price from backend
     const products = await Product.find({ "_id" : { "$in" : productQuery}});
 
 
     let totalAmount = 0 ;
-    let newProductArray= [];
+    let orderDetails= [];
 
     //total amount and final amount
 
     // push product along with count to the new product array
     products.map((item) => {
-       
         productArray.map((count)=>{
-            let newItem = {
-                _id: item._id,
-                name: item.name,
-                price: item.price,
-                description: item.description,
-                thumbnail: item.photos[-1],
-                colectionId: item.colectionId,
-            }
             if(item._id == count.productId){
-                newItem.count = count.count;
                 totalAmount += (item.price)*(count.count);
-                newProductArray.push(newItem);
+                let newItem = {
+                    products: {
+                        productId: item._id,
+                        count: count.count,
+                        price: item.price
+                    },
+                    user: userId,
+                    address,
+                    phoneNumber,
+                    coupon: couponCode,
+                    amount: totalAmount
+                }
+                orderDetails.push(newItem);
             }
-
+        })
     })
-     })
 
      let finalAmount = totalAmount;
-    // // coupon check - DB
+    // // coupon check - DB 
+    // // less discount in db,
+
     if(couponCode){
         const discount = await Coupon.find({code: couponCode});
          finalAmount = totalAmount - discount.discount;
-}
-
-    // // disount
+        }
     
 
     const options = {
@@ -82,8 +81,20 @@ export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
         receipt: `receipt_${new Date().getTime()}`
     }
 
-    // const order = await razorpay.orders.create(options)
-
+    const order = await razorpay.orders.create(options)
     //if order does not exist
+    if(!(order.status === "created")){
+        throw new CustomError("Order not created", 500)
+    }
+
+    orderDetails.transactionId = order.id;
+
+    const orderCreated = await Order.create(orderDetails);
+
     // success then, send it to front end
+    res.status(200).json({
+        success: true,
+        message: "Order Created Successfully",
+        orderDetails
+    })
 })
