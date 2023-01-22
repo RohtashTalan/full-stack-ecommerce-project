@@ -28,18 +28,15 @@ export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
     const {products, couponCode, address, phoneNumber} = req.body;
     const userId = req.user._id;
 
+    let productQuery = [];
+    products.map((item) => (
+        productQuery.push(item._id)
+    ))
+
+
     //capture product price from backend
      
-    const prices = await Product.find({ 
-        "_id" : {
-            "$in" : 
-              ["63ca26e0505996ae353b3530", 
-               "63ca26e0505996ae353b3531"
-              ]
-           }
-    });
-
-
+    const prices = await Product.find({ "_id" : { "$in" : productQuery}});
 
     let totalAmount = 0 ;
     //total amount and final amount
