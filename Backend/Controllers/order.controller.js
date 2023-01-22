@@ -22,29 +22,59 @@ import razorpay from "../config/razorpay.config.js";
 export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
 
     /**Capture info from frontend
-     * products shoud have productId, count
+     * productArray shoud have productId, count
      * phone Number should be in number
      */
-    const {products, couponCode, address, phoneNumber} = req.body;
+    const {productArray, couponCode, address, phoneNumber} = req.body;
     const userId = req.user._id;
 
+    // make query as variable
     let productQuery = [];
-    products.map((item) => (
-        productQuery.push(item._id)
-    ))
+    productArray.map((item) => (
+        productQuery.push(item.productId)
+    ));
 
 
+    
     //capture product price from backend
-     
-    const prices = await Product.find({ "_id" : { "$in" : productQuery}});
+    const products = await Product.find({ "_id" : { "$in" : productQuery}});
+
 
     let totalAmount = 0 ;
+    let newProductArray= [];
+
     //total amount and final amount
-    prices.map((item) => (totalAmount += item.price ))
-    // coupon check - DB
-    const discount = await Coupon.find({code: couponCode});
-    // disount
-    let finalAmount = totalAmount - discount
+
+    // push product along with count to the new product array
+    products.map((item) => {
+       
+        productArray.map((count)=>{
+            let newItem = {
+                _id: item._id,
+                name: item.name,
+                price: item.price,
+                description: item.description,
+                thumbnail: item.photos[-1],
+                colectionId: item.colectionId,
+            }
+            if(item._id == count.productId){
+                newItem.count = count.count;
+                totalAmount += (item.price)*(count.count);
+                newProductArray.push(newItem);
+            }
+
+    })
+     })
+
+     let finalAmount = totalAmount;
+    // // coupon check - DB
+    if(couponCode){
+        const discount = await Coupon.find({code: couponCode});
+         finalAmount = totalAmount - discount.discount;
+}
+
+    // // disount
+    
 
     const options = {
         amount: Math.round(finalAmount * 100),
@@ -52,7 +82,7 @@ export const generateRazorpayOrderId = asyncHandler( async (req, res) => {
         receipt: `receipt_${new Date().getTime()}`
     }
 
-    const order = await razorpay.orders.create(options)
+    // const order = await razorpay.orders.create(options)
 
     //if order does not exist
     // success then, send it to front end

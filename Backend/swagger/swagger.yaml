@@ -475,25 +475,22 @@ paths:
               schema: 
                 type: object
                 properties:
-                    name:
-                      type: string
-                    price:
-                      type: number
-                    description:
-                      type: string
-                    photos:
+                    productArray:
                       type: array
                       items:
                         type: object
                         properties:
-                          secure_url:
+                          productId:
                             type: string
-                    stock:
-                      type: number
-                    sold:
-                      type: number
-                    colectionId:
+                          count:
+                            type: number
+                            default: 1
+                    couponCode:
                       type: string
+                    address:
+                      type: string
+                    phoneNumber:
+                      type: number
         responses: 
           '200':
             description: Success - return object
