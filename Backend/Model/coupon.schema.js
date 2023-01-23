@@ -5,7 +5,8 @@ const couponSchema = mongoose.Schema(
     {
         code:{
             type:String,
-            required: [true, 'Please provide a coupan name']
+            required: [true, 'Please provide a coupan name'],
+            unique: [true, "This Coupon is already exists"]
         },
         discount: {
             type:Number,

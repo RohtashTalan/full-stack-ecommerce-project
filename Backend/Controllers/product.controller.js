@@ -142,23 +142,3 @@ export const getProductById = asyncHandler(async (req, res) => {
     })
 })
 
-
-
-
-
-// assignment to read 
-
-
-/* 
-
-
-model.aggregate([{}, {}, {}, {}])
-
-$group
-$push
-$ROOT
-$lookup
-$porject
-
-
-*/
