@@ -1,6 +1,7 @@
 import Header from "./Components/Header";
 import Aside from "./Components/Aside";
 import Products from "./Components/Products";
+import Login from "./Components/Login";
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
   <Header />
 
   <main className="flex gap-4 my-6">
+    <Login />
     <Aside/>
     <Products/>
   </main>
