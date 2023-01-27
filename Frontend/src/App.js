@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Header from "./Components/Header";
 import Aside from "./Components/Aside";
 import Products from "./Components/Products";
@@ -10,15 +12,14 @@ function App() {
   <Header />
 
   <main className="flex gap-4 my-6">
-    <Login />
-    <Aside/>
-    <Products/>
+  <BrowserRouter>
+  <Routes>
+    <Route path="/" element={<><Aside/> <Products/></>} /> 
+    <Route path="/login" element={<Login />} />
+  </Routes>
+  </BrowserRouter>
+   
   </main>
-   <div className="text-3xl font-bold underline text-red-600">
-
-
-<h1>Ecommerce App</h1>
-</div>
   </>
    
   );
